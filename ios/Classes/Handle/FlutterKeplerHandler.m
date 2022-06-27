@@ -120,33 +120,6 @@
     [[KeplerApiManager sharedKPService] openShoppingCart:rootViewController jumpType:jumpType userInfo:userInfo];
 }
 
-/**
- *  添加到购物车（深圳）
- *
- *  @param sku 商品sku
- *  @param num 添加到购物车中商品数量
- *  @param success 添加成功回调
- *  @param failure 添加失败回调
- */
-- (void)keplerAddToCartWithSku:(FlutterMethodCall *)call result:(FlutterResult)result {
-    UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    NSString *sku = call.arguments[@"sku"];
-    NSString *num = call.arguments[@"num"];
-    
-    
-    [[KeplerApiManager sharedKPService] addToCartWithSku:sku num:num sourceController:rootViewController success:^{
-        //        加车成功
-        result(@{
-                 FlutterKeplerConstKey_ErrorCode : @"0",
-                 FlutterKeplerConstKey_ErrorMessage : @"success",
-                 });
-    } failure:^(NSInteger errorCode) {
-        result(@{
-                 FlutterKeplerConstKey_ErrorCode :[NSString stringWithFormat: @"%ld", (long)errorCode],
-                 FlutterKeplerConstKey_ErrorMessage : [self errorMessageFromCode:errorCode],
-                 });
-    }];
-}
 
 /**
  
