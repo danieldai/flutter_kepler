@@ -16,7 +16,7 @@ class FlutterKepler {
 
 // 初始化
   static Future<ResultModel> initKepler(
-      {@required String appKey, @required String appSecret}) async {
+      {required String appKey, required String appSecret}) async {
     Map result = await _channel
         .invokeMethod("initKepler", {"appKey": appKey, "appSecret": appSecret});
     return ResultModel(
@@ -32,7 +32,7 @@ class FlutterKepler {
   /// 禁止传参带入以下符号：   =#%&+?<{}
   ///
   ///
-  static keplerPageWithURL({@required String url, Map userInfo}) {
+  static keplerPageWithURL({required String url, Map? userInfo}) {
     _channel
         .invokeMethod("keplerPageWithURL", {"url": url, "userInfo": userInfo});
   }
@@ -43,7 +43,7 @@ class FlutterKepler {
   /// 禁止传参带入以下符号：   =#%&+?<{}
   ///
   ///
-  static keplerNavigationPage({Map userInfo}) {
+  static keplerNavigationPage({Map? userInfo}) {
     _channel.invokeMethod("keplerNavigationPage", {"userInfo": userInfo});
   }
 
@@ -54,7 +54,7 @@ class FlutterKepler {
   /// 禁止传参带入以下符号：   =#%&+?<{}
   ///
   ///
-  static keplerOpenItemDetailWithSKU({@required String sku, Map userInfo}) {
+  static keplerOpenItemDetailWithSKU({required String sku, Map? userInfo}) {
     _channel.invokeMethod(
         "keplerOpenItemDetailWithSKU", {"sku": sku, "userInfo": userInfo});
   }
@@ -65,7 +65,7 @@ class FlutterKepler {
   /// 禁止传参带入以下符号：   =#%&+?<{}
   ///
   ///
-  static keplerOpenOrderList({Map userInfo}) {
+  static keplerOpenOrderList({Map? userInfo}) {
     _channel.invokeMethod("keplerOpenOrderList", {"userInfo": userInfo});
   }
 
@@ -76,7 +76,7 @@ class FlutterKepler {
   /// 禁止传参带入以下符号：   =#%&+?<{}
   ///
   ///
-  static keplerOpenSearchResult({@required String searchKey, Map userInfo}) {
+  static keplerOpenSearchResult({required String searchKey, Map? userInfo}) {
     _channel.invokeMethod("keplerOpenSearchResult",
         {"searchKey": searchKey, "userInfo": userInfo});
   }
@@ -87,7 +87,7 @@ class FlutterKepler {
   /// 禁止传参带入以下符号：   =#%&+?<{}
   ///
   ///
-  static keplerOpenShoppingCart({Map userInfo}) {
+  static keplerOpenShoppingCart({Map? userInfo}) {
     _channel.invokeMethod("keplerOpenShoppingCart", {"userInfo": userInfo});
   }
 
@@ -98,7 +98,7 @@ class FlutterKepler {
   ///
   ///
   static Future<ResultModel> keplerAddToCartWithSku(
-      {@required String sku, String number = "1"}) async {
+      {required String sku, String number = "1"}) async {
     Map result = await _channel
         .invokeMethod("keplerAddToCartWithSku", {"sku": sku, "num": number});
     return ResultModel(
@@ -115,10 +115,10 @@ class FlutterKepler {
   ///refer refer (原生页面传域名+文章编号)
   ///
   static Future<ResultModel> keplerFastPurchase({
-    @required String unionID,
-    @required String appID,
-    @required String skuID,
-    @required String refer,
+    required String unionID,
+    required String appID,
+    required String skuID,
+    required String refer,
   }) async {
     Map result = await _channel.invokeMethod("keplerFastPurchase",
         {"unionID": unionID, "appID": appID, "skuID": skuID, "refer": refer});
@@ -168,7 +168,7 @@ class FlutterKepler {
   /// 是否强制使用H5打开界面 默认为true;
   /// 设置为false时,调用商品详情页,订单列表,购物车等方法时将跳转到京东app并打开对应的界面
   static setKeplerOpenByH5({
-    @required bool isOpenByH5,
+    required bool isOpenByH5,
   }) {
     _channel.invokeMethod("setKeplerOpenByH5", {"isOpenByH5": isOpenByH5});
   }
