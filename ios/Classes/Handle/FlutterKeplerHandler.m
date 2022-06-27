@@ -121,33 +121,7 @@
 }
 
 
-/**
- 
- 联盟一键加购 unionID 联盟ID,AppID 查看位置：我的推广-推广管理-APP管理 skuID 商品SKU,
- 
- refer refer (原生页面传域名+文章编号),viewController 当前的视图控制器,completionHandler 返回
- 
- */
-- (void)keplerFastPurchase:(FlutterMethodCall *)call result:(FlutterResult)flutterResult {
-    UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    NSString *unionID = call.arguments[@"unionID"];
-    NSString *appId = call.arguments[@"appId"];
-    NSString *skuID = call.arguments[@"skuID"];
-    NSString *refer = call.arguments[@"refer"];
-    [[KeplerApiManager sharedKPService] keplerFastPurchaseWith:unionID appID:appId skuID:skuID refer:refer controller:rootViewController completion:^(BOOL result, id  _Nullable responseObject, NSError * _Nullable error) {
-        if (result) {
-            flutterResult(@{
-                            FlutterKeplerConstKey_ErrorCode : @"0",
-                            FlutterKeplerConstKey_ErrorMessage : @"success",
-                            });
-        }else{
-            flutterResult(@{
-                            FlutterKeplerConstKey_ErrorCode : [NSString stringWithFormat: @"%ld", (long)error.code],
-                            FlutterKeplerConstKey_ErrorMessage :error.localizedDescription,
-                            });
-        }
-    }];
-}
+
 
 
 #pragma mark - 辅助功能
