@@ -99,9 +99,7 @@ public class FlutterKeplerHandle {
     }
 
     public void setActivity(Activity activity) {
-        if (handle == null){
-            handle.activity = activity;
-        }
+        this.activity = activity;
     }
 
     /**
