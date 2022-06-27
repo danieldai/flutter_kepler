@@ -1,20 +1,51 @@
 package com.wxwx.flutter_kepler;
 
+import io.flutter.embedding.engine.plugins.FlutterPlugin;
+import io.flutter.embedding.engine.plugins.activity.ActivityAware;
+import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding;
 import io.flutter.plugin.common.MethodCall;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
-import io.flutter.plugin.common.PluginRegistry.Registrar;
 
 /** FlutterKeplerPlugin */
-public class FlutterKeplerPlugin implements MethodCallHandler {
-
+public class FlutterKeplerPlugin implements FlutterPlugin, MethodCallHandler, ActivityAware {
+  private MethodChannel channel;
   private static com.wxwx.flutter_kepler.FlutterKeplerHandle handle;
-  /** Plugin registration. */
-  public static void registerWith(Registrar registrar) {
-    handle = FlutterKeplerHandle.getInstance(registrar);
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_kepler");
-    channel.setMethodCallHandler(new FlutterKeplerPlugin());
+
+
+  @Override
+  public void onAttachedToEngine(FlutterPluginBinding flutterPluginBinding) {
+    handle = FlutterKeplerHandle.getInstance();
+    channel = new MethodChannel(flutterPluginBinding.getFlutterEngine().getDartExecutor(), "flutter_kepler");
+    channel.setMethodCallHandler(this);
+  }
+
+  @Override
+  public void onDetachedFromEngine(FlutterPluginBinding binding) {
+    channel.setMethodCallHandler(null);
+    handle = null;
+  }
+
+  ///activity 生命周期
+  @Override
+  public void onAttachedToActivity(ActivityPluginBinding activityPluginBinding) {
+    handle.setActivity(activityPluginBinding.getActivity());
+  }
+
+  @Override
+  public void onDetachedFromActivityForConfigChanges() {
+    handle.setActivity(null);
+  }
+
+  @Override
+  public void onReattachedToActivityForConfigChanges(ActivityPluginBinding activityPluginBinding) {
+    handle.setActivity(activityPluginBinding.getActivity());
+  }
+
+  @Override
+  public void onDetachedFromActivity() {
+    handle.setActivity(null);
   }
 
   @Override

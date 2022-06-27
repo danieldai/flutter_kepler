@@ -1,5 +1,6 @@
 package com.wxwx.flutter_kepler;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.util.Log;
@@ -38,7 +39,7 @@ import java.util.Map;
 public class FlutterKeplerHandle {
 
     private static FlutterKeplerHandle handle;
-    private Registrar register;
+    private Activity activity;
     private Handler mHandler = new Handler();
     private KelperTask mKelperTask = null;
     /**
@@ -68,7 +69,7 @@ public class FlutterKeplerHandle {
      */
     private void dialogShow() {
         if (dialog == null) {
-            dialog = new LoadingDialog(register.activity());
+            dialog = new LoadingDialog(activity);
 //            dialog.setCanceledOnTouchOutside(false);
             dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                 @Override
@@ -88,21 +89,23 @@ public class FlutterKeplerHandle {
         }
     }
 
-    //第一次调用getInstance register不能为空
-    public static FlutterKeplerHandle getInstance(Registrar register){
+    public static FlutterKeplerHandle getInstance(){
         if (handle == null){
             synchronized (FlutterKeplerHandle.class){
                 handle = new FlutterKeplerHandle();
-                handle.register = register;
             }
         }
         return handle;
     }
 
+    public void setActivity(Activity activity) {
+        if (handle == null){
+            handle.activity = activity;
+        }
+    }
+
     /**
      * 将map参数构造为 KeplerAttachParameter 对象
-     * @param map
-     * @return
      */
     private KeplerAttachParameter getAttachParameter(Map<String, Object> info) throws JSONException, KeplerAttachException, KeplerBufferOverflowException{
         if (info == null){
@@ -133,7 +136,7 @@ public class FlutterKeplerHandle {
     public void initKepler(MethodCall call, Result result){
         String appKey = call.argument("appKey");
         String appSecret = call.argument("appSecret");
-        KeplerApiManager.asyncInitSdk(register.activity().getApplication(), appKey, appSecret, new AsyncInitListener() {
+        KeplerApiManager.asyncInitSdk(activity.getApplication(), appKey, appSecret, new AsyncInitListener() {
             @Override
             public void onSuccess() {
                 result.success(PluginResponse.success(null).toMap());
@@ -153,7 +156,7 @@ public class FlutterKeplerHandle {
      * @param result
      */
     public void keplerLogin(Result result){
-        KeplerApiManager.getWebViewService().login(register.activity(), new LoginListener() {
+        KeplerApiManager.getWebViewService().login(activity, new LoginListener() {
             @Override
             public void authSuccess() {
                 result.success(PluginResponse.success(null).toMap());
@@ -190,7 +193,7 @@ public class FlutterKeplerHandle {
      * @param result
      */
     public void keplerCancelAuth(MethodCall call, Result result){
-        KeplerApiManager.getWebViewService().cancelAuth(register.activity());
+        KeplerApiManager.getWebViewService().cancelAuth(activity);
     }
 
     /**
@@ -203,7 +206,7 @@ public class FlutterKeplerHandle {
         Map<String, Object> info = (Map)call.argument("userInfo");
         try {
             KeplerAttachParameter customerInfo = getAttachParameter(info);
-            mKelperTask= KeplerApiManager.getWebViewService().openJDUrlPage(url, customerInfo,register.activity(), mOpenAppAction,TIMEOUT);
+            mKelperTask= KeplerApiManager.getWebViewService().openJDUrlPage(url, customerInfo, activity, mOpenAppAction,TIMEOUT);
         } catch (KeplerBufferOverflowException | KeplerAttachException | JSONException e) {
             result.success(PluginResponse.failed(e).toMap());
         }
@@ -216,7 +219,7 @@ public class FlutterKeplerHandle {
         Map<String, Object> info = (Map)call.argument("userInfo");
         try {
             KeplerAttachParameter customerInfo = getAttachParameter(info);
-            mKelperTask= KeplerApiManager.getWebViewService().openNavigationPage(customerInfo,register.activity(), mOpenAppAction,TIMEOUT);
+            mKelperTask= KeplerApiManager.getWebViewService().openNavigationPage(customerInfo, activity, mOpenAppAction,TIMEOUT);
         } catch (KeplerBufferOverflowException | KeplerAttachException | JSONException e) {
             result.success(PluginResponse.failed(e).toMap());
         }
@@ -230,7 +233,7 @@ public class FlutterKeplerHandle {
         Map<String, Object> info = (Map)call.argument("userInfo");
         try {
             KeplerAttachParameter customerInfo = getAttachParameter(info);
-            mKelperTask= KeplerApiManager.getWebViewService().openItemDetailsPage(sku, customerInfo,register.activity(), mOpenAppAction,TIMEOUT);
+            mKelperTask= KeplerApiManager.getWebViewService().openItemDetailsPage(sku, customerInfo, activity, mOpenAppAction,TIMEOUT);
         } catch (KeplerBufferOverflowException | KeplerAttachException | JSONException e) {
             result.success(PluginResponse.failed(e).toMap());
         }
@@ -243,7 +246,7 @@ public class FlutterKeplerHandle {
         Map<String, Object> info = (Map)call.argument("userInfo");
         try {
             KeplerAttachParameter customerInfo = getAttachParameter(info);
-            mKelperTask= KeplerApiManager.getWebViewService().openOrderListPage(customerInfo,register.activity(), mOpenAppAction,TIMEOUT);
+            mKelperTask= KeplerApiManager.getWebViewService().openOrderListPage(customerInfo, activity, mOpenAppAction,TIMEOUT);
         } catch (KeplerBufferOverflowException | KeplerAttachException | JSONException e) {
             result.success(PluginResponse.failed(e).toMap());
         }
@@ -260,7 +263,7 @@ public class FlutterKeplerHandle {
         try {
             KeplerAttachParameter customerInfo = getAttachParameter(info);
             mKelperTask= KeplerApiManager.getWebViewService().openSearchPage(
-                    searchKey, customerInfo, register.activity(), mOpenAppAction, TIMEOUT);
+                    searchKey, customerInfo, activity, mOpenAppAction, TIMEOUT);
         } catch (KeplerBufferOverflowException | KeplerAttachException | JSONException e) {
             result.success(PluginResponse.failed(e).toMap());
         }
@@ -275,7 +278,7 @@ public class FlutterKeplerHandle {
         try {
             KeplerAttachParameter customerInfo = getAttachParameter(info);
             mKelperTask= KeplerApiManager.getWebViewService().openCartPage(
-                    customerInfo, register.activity(), mOpenAppAction, TIMEOUT);
+                    customerInfo, activity, mOpenAppAction, TIMEOUT);
         } catch (KeplerBufferOverflowException | KeplerAttachException | JSONException e) {
             result.success(PluginResponse.failed(e).toMap());
         }
@@ -291,7 +294,7 @@ public class FlutterKeplerHandle {
         String num = call.argument("num");
         int[] numbers = new int[]{Integer.parseInt(num)};
         try {
-            KeplerApiManager.getWebViewService().add2Cart(register.activity(), skus, numbers, new ActionCallBck() {
+            KeplerApiManager.getWebViewService().add2Cart(activity, skus, numbers, new ActionCallBck() {
                 @Override
                 public boolean onDateCall(int key, String info) {
                     Map<String, Object> res = new HashMap<>();
@@ -325,7 +328,7 @@ public class FlutterKeplerHandle {
         String skuID = call.argument("skuID");
         String refer = call.argument("refer");
 
-        KeplerApiManager.getWebViewService().addToCart(register.activity(),
+        KeplerApiManager.getWebViewService().addToCart(activity,
                 unionID,
                 appId,
                 skuID,
