@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe78fa34-b91e-4252-acd7-eed186ab57c5" name="Changes" comment="migrate to android embedding v2">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/flutter_kepler.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/flutter_kepler.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+    <list default="true" id="fe78fa34-b91e-4252-acd7-eed186ab57c5" name="Changes" comment="null safety">
+      <change beforePath="$PROJECT_DIR$/android/src/main/java/com/wxwx/flutter_kepler/FlutterKeplerHandle.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/src/main/java/com/wxwx/flutter_kepler/FlutterKeplerHandle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/example/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/example/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/windows/flutter/generated_plugins.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/example/windows/flutter/generated_plugins.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +63,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656319393372</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="null safety">
+      <created>1656319909367</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1656319909367</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -87,6 +95,7 @@
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
     <MESSAGE value="migrate to android embedding v2" />
-    <option name="LAST_COMMIT_MESSAGE" value="migrate to android embedding v2" />
+    <MESSAGE value="null safety" />
+    <option name="LAST_COMMIT_MESSAGE" value="null safety" />
   </component>
 </project>

@@ -70,10 +70,8 @@ public class FlutterKeplerPlugin implements FlutterPlugin, MethodCallHandler, Ac
       handle.keplerOpenOrderList(call, result);
     } else if(call.method.equals("keplerOpenSearchResult")){
       handle.keplerOpenSearchResult(call, result);
-    }  else if(call.method.equals("keplerOpenShoppingCart")){
+    } else if(call.method.equals("keplerOpenShoppingCart")){
       handle.keplerOpenShoppingCart(call, result);
-    } else if(call.method.equals("keplerAddToCartWithSku")){
-      handle.keplerAddToCartWithSku(call, result);
     } else if(call.method.equals("keplerFastPurchase")){
       handle.keplerFastPurchase(call, result);
     } else if(call.method.equals("keplerCheckUpdate")){

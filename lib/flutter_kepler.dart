@@ -92,22 +92,6 @@ class FlutterKepler {
   }
 
   ///
-  ///  添加到购物车（深圳的加车接口）
-  /// @param sku 添加到购物车中的商品id
-  /// @param number 添加到购物车中商品数量,默认1件
-  ///
-  ///
-  static Future<ResultModel> keplerAddToCartWithSku(
-      {required String sku, String number = "1"}) async {
-    Map result = await _channel
-        .invokeMethod("keplerAddToCartWithSku", {"sku": sku, "num": number});
-    return ResultModel(
-      result[KeplerConstKey.errorCode],
-      result[KeplerConstKey.errorMessage],
-    );
-  }
-
-  ///
   ///联盟一键加购
   ///unionID 联盟ID
   ///AppID 查看位置：我的推广-推广管理-APP管理

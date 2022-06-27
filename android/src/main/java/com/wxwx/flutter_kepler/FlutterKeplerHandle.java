@@ -284,35 +284,6 @@ public class FlutterKeplerHandle {
         }
     }
 
-    /**
-     * 加入shoppingCart
-     * @param result
-     */
-    public void keplerAddToCartWithSku(MethodCall call, Result result){
-        String sku = call.argument("sku");
-        String[] skus = new String[]{sku};
-        String num = call.argument("num");
-        int[] numbers = new int[]{Integer.parseInt(num)};
-        try {
-            KeplerApiManager.getWebViewService().add2Cart(activity, skus, numbers, new ActionCallBck() {
-                @Override
-                public boolean onDateCall(int key, String info) {
-                    Map<String, Object> res = new HashMap<>();
-                    res.put("key", key);
-                    res.put("info", info);
-                    result.success(PluginResponse.success(res).toMap());
-                    return false;
-                }
-                @Override public boolean onErrCall(int key, final String error) {
-                    PluginResponse response = PluginUtil.addCartError(key, error);
-                    result.success(response.toMap());
-                    return true;
-                }
-            });
-        } catch (Exception e) {
-            result.success(PluginResponse.failed(e).toMap());
-        }
-    }
 
     /**
      * 一键加入购物车
@@ -327,12 +298,13 @@ public class FlutterKeplerHandle {
         String appId = call.argument("appId");
         String skuID = call.argument("skuID");
         String refer = call.argument("refer");
+        String subUnionId = call.argument("subUnionId");
 
         KeplerApiManager.getWebViewService().addToCart(activity,
                 unionID,
                 appId,
                 skuID,
-                refer, new ActionCallBck() {
+                refer, subUnionId, new ActionCallBck() {
                     @Override
                     public boolean onDateCall(int key, final String info) {
                         Map<String, Object> res = new HashMap<>();
