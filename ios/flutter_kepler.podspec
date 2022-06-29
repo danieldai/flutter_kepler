@@ -22,7 +22,6 @@ Pod::Spec.new do |s|
   s.frameworks = "UIKit","Foundation","SystemConfiguration","JavaScriptCore"
 
   s.libraries = "z","sqlite3.0","c++"
-  s.user_target_xcconfig = { 'ENABLE_BITCODE' => 'NO' }
   s.ios.deployment_target = '8.0'
 end
 
