@@ -47,4 +47,5 @@ dependencies{
     implementation files('src/libs/jdmasdk.jar')
     implementation files('src/libs/JDSDK_h.jar')
     implementation files('src/libs/cps_1.0.0.jar')
+    implementation project(':jdsdk')
 }

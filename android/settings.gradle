@@ -1,1 +1,2 @@
 rootProject.name = 'flutter_kepler'
+include ':jdsdk'
